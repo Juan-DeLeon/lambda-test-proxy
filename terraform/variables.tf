@@ -11,18 +11,6 @@ variable "secret_dev" {
   description = "Name of AWS Secrets resource to load in dev"
 }
 
-# API GATEWAY INTEGRATION - correr 1 vez para ambientes nuevos
-
-variable "api_gateway_route" {
-  description = "Route"
-  default     = ""
-}
-
-variable "api_gateway_route_proxy" {
-  description = "Route"
-  default     = ""
-}
-
 variable "env_config" {
   type = map(object({
     publish     = bool

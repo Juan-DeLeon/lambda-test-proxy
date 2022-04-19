@@ -48,7 +48,6 @@ resource "aws_lambda_function" "func" {
   environment {
     variables = {
       SECRET_NAME = local.secret_name
-      JWT_ISS     = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_i8WFXfLE6"
     }
   }
   lifecycle {
@@ -62,24 +61,4 @@ resource "aws_lambda_alias" "alias" {
   description      = "${local.env.alias_name} deploy from terraform"
   function_name    = aws_lambda_function.func.arn
   function_version = local.alias_version
-}
-
-# API GATEWAY INTEGRATION - correr 1 vez para ambientes nuevos
-
-resource "aws_lambda_permission" "api_gateway_invoke" {
-  statement_id  = "ApiGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func.arn
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = var.api_gateway_route
-  qualifier     = aws_lambda_alias.alias.name
-}
-
-resource "aws_lambda_permission" "api_gateway_invoke_proxy" {
-  statement_id  = "ApiGatewayInvokeProxy"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func.arn
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = var.api_gateway_route_proxy
-  qualifier     = aws_lambda_alias.alias.name
 }

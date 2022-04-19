@@ -1,5 +1,3 @@
-function_name           = "testProxy"
-secret_prod             = "ConexionBDLambdas_OriginacionDigital_Prod"
-secret_dev              = "ConexionBDLambdas_OriginacionDigital"
-api_gateway_route       = "arn:aws:execute-api:us-east-1:943176671807:vagnaeqm6e/*/*/test-proxy"
-api_gateway_route_proxy = "arn:aws:execute-api:us-east-1:943176671807:vagnaeqm6e/*/*/test-proxy/*"
+function_name = "BranchEmailAPI"
+secret_prod   = "ConexionBD_Chatbot_Prod"
+secret_dev    = "ConexionBD_Chatbot_DEV"

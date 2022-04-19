@@ -1,16 +1,14 @@
 import knex, { Knex } from 'knex';
 
-global.DatabaseCache = {};
-
 export function init(): Knex {
     const dbConfig = {
         client: 'mssql',
         connection: {
-            user: process.env.CHALLENGER_USERNAME,
-            password: process.env.CHALLENGER_PASSWORD,
-            host: process.env.CHALLENGER_HOSTNAME || '',
-            database: process.env.CHALLENGER_DB_NAME,
-            port: parseInt(process.env.CHALLENGER_PORT || '1433'),
+            user: process.env.RDS_USERNAME,
+            password: process.env.RDS_PASSWORD,
+            host: process.env.RDS_HOSTNAME || '',
+            database: process.env.RDS_DB_NAME,
+            port: parseInt(process.env.RDS_PORT || '1433'),
         },
         pool: { min: 0, max: 7 }
     }

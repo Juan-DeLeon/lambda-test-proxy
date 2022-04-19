@@ -1,10 +1,11 @@
 import * as router from 'aws-lambda-router';
 import { loadToEnv } from './services/secrets';
 import { HttpLambdaError } from './models/HttpLambdaError.model';
+import * as branchHandler from './handlers/branchEmail.handler';
 
 export async function handler(event, context) {
     // secrets
-    const basePath = 'test-proxy';
+    const basePath = '/branchemail';
     console.log("request:", event);
 
     try {
@@ -20,9 +21,24 @@ export async function handler(event, context) {
             cors: true,
             routes: [
                 {
-                    path: basePath + '/',
+                    path: basePath,
                     method: 'GET',
                     action: () => { return { statusCode: 200, body: "get succesful" } }
+                },
+                {
+                    path: basePath,
+                    method: 'POST',
+                    action: branchHandler.create
+                },
+                {
+                    path: basePath + '/:branch',
+                    method: 'GET',
+                    action: branchHandler.get
+                },
+                {
+                    path: basePath + '/:branch',
+                    method: 'PUT',
+                    action: branchHandler.update
                 },
             ],
             onError: async (err: HttpLambdaError) => {

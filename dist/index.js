@@ -3,10 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
 const router = require("aws-lambda-router");
 const secrets_1 = require("./services/secrets");
-const express = require("express");
+const branchHandler = require("./handlers/branchEmail.handler");
 async function handler(event, context) {
     // secrets
-    const basePath = 'test-proxy';
+    const basePath = '/branchemail';
     console.log("request:", event);
     try {
         await (0, secrets_1.loadToEnv)(process.env.SECRET_NAME);
@@ -21,9 +21,24 @@ async function handler(event, context) {
             cors: true,
             routes: [
                 {
-                    path: basePath + '/',
+                    path: basePath,
                     method: 'GET',
                     action: () => { return { statusCode: 200, body: "get succesful" }; }
+                },
+                {
+                    path: basePath,
+                    method: 'POST',
+                    action: branchHandler.create
+                },
+                {
+                    path: basePath + '/:branch',
+                    method: 'GET',
+                    action: branchHandler.get
+                },
+                {
+                    path: basePath + '/:branch',
+                    method: 'PUT',
+                    action: branchHandler.update
                 },
             ],
             onError: async (err) => {
@@ -42,8 +57,3 @@ async function handler(event, context) {
     return routeHandler(event, context);
 }
 exports.handler = handler;
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use('/', handler);
-app.listen(3000, '0.0.0.0');
