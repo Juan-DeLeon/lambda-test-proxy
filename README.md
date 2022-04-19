@@ -46,6 +46,11 @@
 ![image](https://user-images.githubusercontent.com/82911801/164080204-3d930aa0-cc77-4025-9d36-27a896f34527.png)
 
 
+- Editar src/index.ts para agregar la ruta base (debe ser la misma que declaraste en API Gateway, NO ES EL NOMBRE DEL LAMBDA)
+- 
+![image](https://user-images.githubusercontent.com/82911801/164084159-3175c097-3dd3-4feb-a0cb-88f7d2aa43f3.png)
+
+
 - cambiarse a la carpeta de terraform, correr script de init `./init.ps1 dev`
 - regresar a la carpeta anterior
 - `npm run deploy` para compilar TS y subir con terraform
@@ -60,4 +65,4 @@
 Si todo salio bien el API debe contestar a la ruta base y a la ruta base + /test.
 
 ## Para agregar dependencias
-En realidad solo deberias agregar para tipos de TS, todas las dependencias van aca https://github.com/Juan-DeLeon/nodejsDependenciesLayer
+En realidad solo deberias agregar dependencias para tener intelisense y tipados de los paquetes que usa el lambda, todas las dependencias van aca https://github.com/Juan-DeLeon/nodejsDependenciesLayer
