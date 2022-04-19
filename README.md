@@ -35,6 +35,8 @@
 
 ## Configuracion del proyecto / terraform
 - Clonar repo y copiar archivo a tu carpeta donde vas a trabajar o lo que sea no se, puedes hacer lo que quieras con el, cambiale el nombre o algo y ponlo donde va, no me pregunten sobre este paso.
+- `npm install`
+
 - Cambiar nombre en package.json (solo minusculas, separar con guiones)
 
 ![image](https://user-images.githubusercontent.com/82911801/164069250-4aa52ca7-fbb1-4ed6-b784-f6641b26294c.png)
@@ -56,3 +58,6 @@
 ```
 
 Si todo salio bien el API debe contestar a la ruta base y a la ruta base + /test.
+
+## Para agregar dependencias
+En realidad solo deberias agregar para tipos de TS, todas las dependencias van aca https://github.com/Juan-DeLeon/nodejsDependenciesLayer
