@@ -1,10 +1,11 @@
 import * as router from 'aws-lambda-router';
 import { loadToEnv } from './services/secrets';
 import { HttpLambdaError } from './models/HttpLambdaError.model';
+import * as exampleHandler from './handlers/example';
 
 export async function handler(event, context) {
     // secrets
-    const basePath = 'test-proxy';
+    const basePath = '/test-proxy';
     console.log("request:", event);
 
     try {
@@ -23,6 +24,11 @@ export async function handler(event, context) {
                     path: basePath + '/',
                     method: 'GET',
                     action: () => { return { statusCode: 200, body: "get succesful" } }
+                },
+                {
+                    path: basePath + '/test',
+                    method: 'GET',
+                    action: exampleHandler.test
                 },
             ],
             onError: async (err: HttpLambdaError) => {

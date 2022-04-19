@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.handler = void 0;
 const router = require("aws-lambda-router");
 const secrets_1 = require("./services/secrets");
-const express = require("express");
+const exampleHandler = require("./handlers/example");
 async function handler(event, context) {
     // secrets
     const basePath = 'test-proxy';
@@ -25,6 +25,11 @@ async function handler(event, context) {
                     method: 'GET',
                     action: () => { return { statusCode: 200, body: "get succesful" }; }
                 },
+                {
+                    path: basePath + '/test',
+                    method: 'GET',
+                    action: exampleHandler.test
+                },
             ],
             onError: async (err) => {
                 // return of non 2xx status code throws api error
@@ -42,8 +47,3 @@ async function handler(event, context) {
     return routeHandler(event, context);
 }
 exports.handler = handler;
-const app = express();
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-app.use('/', handler);
-app.listen(3000, '0.0.0.0');

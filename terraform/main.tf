@@ -63,23 +63,3 @@ resource "aws_lambda_alias" "alias" {
   function_name    = aws_lambda_function.func.arn
   function_version = local.alias_version
 }
-
-# API GATEWAY INTEGRATION - correr 1 vez para ambientes nuevos
-
-resource "aws_lambda_permission" "api_gateway_invoke" {
-  statement_id  = "ApiGatewayInvoke"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func.arn
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = var.api_gateway_route
-  qualifier     = aws_lambda_alias.alias.name
-}
-
-resource "aws_lambda_permission" "api_gateway_invoke_proxy" {
-  statement_id  = "ApiGatewayInvokeProxy"
-  action        = "lambda:InvokeFunction"
-  function_name = aws_lambda_function.func.arn
-  principal     = "apigateway.amazonaws.com"
-  source_arn    = var.api_gateway_route_proxy
-  qualifier     = aws_lambda_alias.alias.name
-}
