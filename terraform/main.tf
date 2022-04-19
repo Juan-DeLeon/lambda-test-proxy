@@ -48,7 +48,6 @@ resource "aws_lambda_function" "func" {
   environment {
     variables = {
       SECRET_NAME = local.secret_name
-      JWT_ISS     = "https://cognito-idp.us-east-1.amazonaws.com/us-east-1_i8WFXfLE6"
     }
   }
   lifecycle {
